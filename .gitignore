@@ -1,0 +1,13 @@
+﻿################################################################################
+# Este archivo .gitignore ha sido creado automáticamente por Microsoft(R) Visual Studio.
+################################################################################
+
+/TiLi.Api/UserDatabase.db
+/TiLi.Api/.vs/TiLi.Api
+/TiLi.Infrastructure/Migrations
+/TiLi.Infrastructure/obj
+/TiLi.Infrastructure/bin/Debug/netcoreapp3.1
+/TiLi.Api/obj
+/TiLi.Api/bin/Debug/netcoreapp3.1
+/TiLi.Core/bin/Debug/netcoreapp3.1
+/TiLi.Core/obj
