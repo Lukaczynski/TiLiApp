@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -34,7 +35,7 @@ namespace TiLi.Api
 {
     public class Startup
     {
-        private const string SecretKey = "iNfsdf5GHJdfA2134s6ad8fadRj1PVkH"; // todo: get this from somewhere secure
+        private const string SecretKey = "iNfsdf5GHJdfA2134s6ad8fadRj1PVkH"; // todo: change to another location
         private readonly SymmetricSecurityKey _signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(SecretKey));
 
         public Startup(IConfiguration configuration)
@@ -44,22 +45,27 @@ namespace TiLi.Api
 
         public IConfiguration Configuration { get; }
 
+        public ILifetimeScope AutofacContainer { get; private set; }
 
         public void ConfigureContainer(Autofac.ContainerBuilder builder)
         {
+            #region Autofac Services Registration
             // Register our services with Autofac container.
             builder.RegisterModule<CoreModule>();
             builder.RegisterModule<InfrastructureModule>();
+            #endregion Autofac Services Registration
 
-            // Presenters
+            #region  Presenters
             builder.RegisterType<RegisterUserPresenter>().SingleInstance();
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).Where(t => t.Name.EndsWith("Presenter")).SingleInstance();
+            #endregion  Presenters
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
             #region Swagger 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
@@ -68,11 +74,12 @@ namespace TiLi.Api
             });
             #endregion Swagger
 
+            #region FrameWork Services
             // Add framework services.
             services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlite(Configuration.GetConnectionString("sqlite"), b => b.MigrationsAssembly("TiLi.Infrastructure"))
-
+            options.UseSqlite(Configuration.GetConnectionString("Default"), b => b.MigrationsAssembly("TiLi.Infrastructure"))
             );
+            #endregion FrameWork Services
 
             #region JWT
             // jwt wire up
@@ -148,44 +155,53 @@ namespace TiLi.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-
-            app.UseSwagger();
-            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
-            // specifying the Swagger JSON endpoint.
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-                c.RoutePrefix = string.Empty;
-            });
-
-            // Enable middleware to serve generated Swagger as a JSON endpoint.
-
-
-            /*app.UseExceptionHandler(
-                 builder =>
-                 {
-                     builder.Run(
-                                async context =>
-                                {
-                                    context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                                    context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
-
-                                    var error = context.Features.Get<IExceptionHandlerFeature>();
-                                    if (error != null)
-                                    {
-                                        context.Response.AddApplicationError(error.Error.Message);
-                                        await context.Response.WriteAsync(error.Error.Message).ConfigureAwait(false);
-                                    }
-                                });
-                 });*/
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
+
+            #region Swagger
+            app.UseSwagger();
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "TiLi.Api V1");
+                c.RoutePrefix = String.Empty;
+            });
+            #endregion Swagger
+
+            
+
+            this.AutofacContainer = app.ApplicationServices.GetAutofacRoot();
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+
+            #region Exception Handler
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseExceptionHandler(
+                builder =>
+                {
+                    builder.Run(
+                        async context =>
+                        {
+                            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                            context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
+
+                            var error = context.Features.Get<IExceptionHandlerFeature>();
+                            if (error != null)
+                            {
+                                context.Response.AddApplicationError(error.Error.Message);
+                                await context.Response.WriteAsync(error.Error.Message).ConfigureAwait(false);
+                            }
+                        });
+                });
+            #endregion Exception Handler
+
 
             app.UseAuthorization();
 
@@ -194,9 +210,6 @@ namespace TiLi.Api
                 endpoints.MapControllers();
 
             });
-
-
-           
 
         }
     }

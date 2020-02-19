@@ -24,7 +24,7 @@ namespace TiLi.Controllers
     public async Task<ActionResult> Login([FromBody] Models.Request.LoginRequest request)
     {
       if (!ModelState.IsValid)
-      { // re-render the view when validation failed.
+      { 
         return BadRequest(ModelState);
       }
       await _loginUseCase.Handle(new LoginRequest(request.UserName, request.Password), _loginPresenter);

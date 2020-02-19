@@ -5,11 +5,14 @@ VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TiLi.Api", "TiLi.Api.csproj", "{54BE40F7-4B91-4B23-B7BA-C65328DFB369}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TiLi.Infrastructure", "..\TiLi.Infrastructure\TiLi.Infrastructure.csproj", "{DC900B70-7E26-4B63-BC80-F4BEF070FD21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TiLi.Infrastructure", "..\TiLi.Infrastructure\TiLi.Infrastructure.csproj", "{DC900B70-7E26-4B63-BC80-F4BEF070FD21}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NewFolder1", "NewFolder1", "{4A631AE2-2244-4554-A91D-99B0F44EA931}"
+	ProjectSection(SolutionItems) = preProject
+		sitesOfInterests.txt = sitesOfInterests.txt
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TiLi.Core", "..\TiLi.Core\TiLi.Core.csproj", "{3207C8DA-FAB9-4803-90CA-29090B7223EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TiLi.Core", "..\TiLi.Core\TiLi.Core.csproj", "{3207C8DA-FAB9-4803-90CA-29090B7223EF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

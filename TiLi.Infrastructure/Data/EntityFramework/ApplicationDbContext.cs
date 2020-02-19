@@ -19,7 +19,9 @@ namespace TiLi.Infrastructure.Data.EntityFramework
         {
 
             base.OnModelCreating(modelBuilder);
-
+            modelBuilder.Entity<AppUser>()
+                .Property(e => e.Id)
+                .ValueGeneratedOnAdd();
 
         }
 
