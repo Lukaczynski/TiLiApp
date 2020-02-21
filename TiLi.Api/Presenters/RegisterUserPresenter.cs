@@ -1,9 +1,9 @@
 ﻿using System.Net;
 using TiLi.Core.Dto.UseCaseResponses;
 using TiLi.Core.Interfaces;
-using TiLi.Serialization;
+using TiLi.Api.Serialization;
 
-namespace TiLi.Presenters
+namespace TiLi.Api.Presenters
 {
     public sealed class RegisterUserPresenter : IOutputPort<RegisterUserResponse>
     {

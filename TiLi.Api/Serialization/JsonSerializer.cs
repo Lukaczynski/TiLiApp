@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace TiLi.Serialization
+namespace TiLi.Api.Serialization
 {
     public sealed class JsonSerializer
     {

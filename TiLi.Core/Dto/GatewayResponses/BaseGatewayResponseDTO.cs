@@ -2,12 +2,12 @@
 
 namespace TiLi.Core.Dto.GatewayResponses
 {
-  public abstract class BaseGatewayResponse
+  public abstract class BaseGatewayResponseDTO
   {
     public bool Success { get; }
     public IEnumerable<Error> Errors { get; }
 
-    protected BaseGatewayResponse(bool success=false, IEnumerable<Error> errors=null)
+    protected BaseGatewayResponseDTO(bool success=false, IEnumerable<Error> errors=null)
     {
       Success = success;
       Errors = errors;

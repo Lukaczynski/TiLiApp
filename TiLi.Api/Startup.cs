@@ -24,12 +24,12 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using TiLi.Core;
-using TiLi.Extensions;
+using TiLi.Api.Extensions;
 using TiLi.Infrastructure;
 using TiLi.Infrastructure.Auth;
 using TiLi.Infrastructure.Data.Entities;
 using TiLi.Infrastructure.Data.EntityFramework;
-using TiLi.Presenters;
+using TiLi.Api.Presenters;
 
 namespace TiLi.Api
 {

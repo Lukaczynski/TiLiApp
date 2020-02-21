@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace TiLi.Presenters
+namespace TiLi.Api.Presenters
 {
   public sealed class JsonContentResult : ContentResult
   {

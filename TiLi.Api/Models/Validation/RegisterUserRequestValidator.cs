@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using TiLi.Models.Request;
+using TiLi.Api.Models.Request;
 
 namespace TiLi.Models.Validation
 {

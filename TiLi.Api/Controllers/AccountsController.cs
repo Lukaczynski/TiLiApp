@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using TiLi.Core.Dto.UseCaseRequests;
 using TiLi.Core.Interfaces.UseCases;
-using TiLi.Presenters;
+using TiLi.Api.Presenters;
 
-namespace TiLi.Controllers
+namespace TiLi.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

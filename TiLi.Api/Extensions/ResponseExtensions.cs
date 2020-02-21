@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace TiLi.Extensions
+namespace TiLi.Api.Extensions
 {
     public static class ResponseExtensions
     {

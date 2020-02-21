@@ -1,6 +1,6 @@
 ﻿
 
-namespace TiLi.Models.Request
+namespace TiLi.Api.Models.Request
 {
   public class LoginRequest
   {
