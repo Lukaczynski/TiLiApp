@@ -9,19 +9,39 @@ using TiLi.Infrastructure.Data.EntityFramework.Entities;
 
 namespace TiLi.Infrastructure.Data.EntityFramework
 {
-    public class ApplicationDbContext : IdentityDbContext<AppUser>
+    public class ApplicationDbContext : IdentityDbContext<AppUser, AppRole, string>
     {
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
         }
-
+        public DbSet<Project> Projects { get; set; }
+        public DbSet<AppUserProject> AppUserProjects { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
             base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<AppUser>()
                 .Property(e => e.Id)
                 .ValueGeneratedOnAdd();
+            modelBuilder.Entity<AppRole>()
+                .Property(e => e.Id)
+                .ValueGeneratedOnAdd();
+
+            #region Relations
+            modelBuilder.Entity<AppUserProject>()
+                .HasKey(bc => new { bc.AppUserId, bc.ProjectId });
+            modelBuilder.Entity<AppUserProject>()
+                .HasOne(bc => bc.Project)
+                .WithMany(b => b.AppUserProject)
+                .HasForeignKey(bc => bc.ProjectId);
+            modelBuilder.Entity<AppUserProject>()
+                .HasOne(bc => bc.AppUser)
+                .WithMany(c => c.AppUserProject)
+                .HasForeignKey(bc => bc.AppUserId);
+            #endregion Relations
+
+
 
         }
 
