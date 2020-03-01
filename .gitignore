@@ -11,3 +11,13 @@
 /TiLi.Api/bin/Debug/netcoreapp3.1
 /TiLi.Core/bin/Debug/netcoreapp3.1
 /TiLi.Core/obj
+/TiLi.Api/TestDatabase.db-shm
+/TiLi.Api/TestDatabase.db
+/TiLi.Api/sitesOfInterests.txt
+/TiLi.Api.Unit.Tests/bin/Debug/netcoreapp3.1
+/TiLi.Api.Unit.Tests/obj/Debug/netcoreapp3.1
+/TiLi.Api.Unit.Tests/obj
+/TiLi.Core/ClassDiagram1.cd
+/TiLi.Core.UnitTests/bin/Debug/netcoreapp3.1
+/TiLi.Core.UnitTests/obj
+/TiLi.Infrastructure/ClassDiagram1.cd
