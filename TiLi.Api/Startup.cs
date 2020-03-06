@@ -30,6 +30,7 @@ using TiLi.Infrastructure.Auth;
 using TiLi.Infrastructure.Data.Entities;
 using TiLi.Infrastructure.Data.EntityFramework;
 using TiLi.Api.Presenters;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace TiLi.Api
 {
@@ -56,7 +57,7 @@ namespace TiLi.Api
             #endregion Autofac Services Registration
 
             #region  Presenters
-            builder.RegisterType<RegisterUserPresenter>().SingleInstance();
+            builder.RegisterType<BaseResponsePresenter>().SingleInstance();
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).Where(t => t.Name.EndsWith("Presenter")).SingleInstance();
             #endregion  Presenters
         }
@@ -71,13 +72,32 @@ namespace TiLi.Api
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "TiLi.Api", Version = "v1" });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement {
+                   {
+                     new OpenApiSecurityScheme
+                     {
+                       Reference = new OpenApiReference
+                       {
+                         Type = ReferenceType.SecurityScheme,
+                         Id = "Bearer"
+                       }
+                      },
+                      new string[] { }
+                    } });
             });
             #endregion Swagger
 
             #region FrameWork Services
             // Add framework services.
             services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlite(Configuration.GetConnectionString("Default"), b => b.MigrationsAssembly("TiLi.Infrastructure"))
+                options.UseSqlite(Configuration.GetConnectionString("Default"), b => b.MigrationsAssembly("TiLi.Infrastructure"))
             );
             #endregion FrameWork Services
 
@@ -133,16 +153,18 @@ namespace TiLi.Api
                 o.Password.RequireUppercase = false;
                 o.Password.RequireNonAlphanumeric = false;
                 o.Password.RequiredLength = 6;
-            });
-
-            identityBuilder = new IdentityBuilder(identityBuilder.UserType, typeof(IdentityRole), identityBuilder.Services);
+            }).AddRoles<AppRole>();
+            
+            identityBuilder = new IdentityBuilder(identityBuilder.UserType, identityBuilder.RoleType, identityBuilder.Services);
             identityBuilder.AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
             #endregion Identity
 
-            #region Auto Mapper Configurations
-            //more util info: https://stackoverflow.com/questions/40275195/how-to-set-up-automapper-in-asp-net-core
-            var mappingConfig = new MapperConfiguration(mc =>
+            services.AddDistributedRedisCache(r => { r.Configuration = Configuration["redis:connectionString"]; });
+
+                #region Auto Mapper Configurations
+                //more util info: https://stackoverflow.com/questions/40275195/how-to-set-up-automapper-in-asp-net-core
+                var mappingConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new Infrastructure.Data.Mapping.DataProfile());
             });
@@ -172,7 +194,7 @@ namespace TiLi.Api
             });
             #endregion Swagger
 
-            
+
 
             this.AutofacContainer = app.ApplicationServices.GetAutofacRoot();
 
@@ -201,9 +223,17 @@ namespace TiLi.Api
                         });
                 });
             #endregion Exception Handler
+            // global cors policy
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
 
-
+            app.UseAuthentication();
             app.UseAuthorization();
+
+
+
 
             app.UseEndpoints(endpoints =>
             {

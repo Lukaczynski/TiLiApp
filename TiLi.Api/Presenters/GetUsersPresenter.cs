@@ -1,20 +1,23 @@
-﻿using System.Net;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
+using TiLi.Api.Serialization;
 using TiLi.Core.Dto.UseCaseResponses;
 using TiLi.Core.Interfaces;
-using TiLi.Api.Serialization;
 
 namespace TiLi.Api.Presenters
 {
-    public sealed class RegisterUserPresenter : IOutputPort<RegisterUserResponse>
+    public class GetUsersPresenter : IOutputPort<GetUsersResponse>
     {
         public JsonContentResult ContentResult { get; }
 
-        public RegisterUserPresenter()
+        public GetUsersPresenter()
         {
             ContentResult = new JsonContentResult();
         }
-
-        public void Handle(RegisterUserResponse response)
+        public void Handle(GetUsersResponse response)
         {
             ContentResult.StatusCode = (int)(response.Success ? HttpStatusCode.OK : HttpStatusCode.BadRequest);
             ContentResult.Content = JsonSerializer.SerializeObject(response);

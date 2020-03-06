@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TiLi.Api", "TiLi.Api.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TiLi.Infrastructure", "..\TiLi.Infrastructure\TiLi.Infrastructure.csproj", "{DC900B70-7E26-4B63-BC80-F4BEF070FD21}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NewFolder1", "NewFolder1", "{4A631AE2-2244-4554-A91D-99B0F44EA931}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "utils", "utils", "{4A631AE2-2244-4554-A91D-99B0F44EA931}"
 	ProjectSection(SolutionItems) = preProject
 		sitesOfInterests.txt = sitesOfInterests.txt
 	EndProjectSection
@@ -16,9 +16,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TiLi.Core", "..\TiLi.Core\T
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{43673D9F-F5F4-419A-AAE7-9A267C3244FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TiLi.Core.UnitTests", "..\TiLi.Core.UnitTests\TiLi.Core.UnitTests.csproj", "{EC48E8E0-97DB-4D42-9DFD-C3E5146C6352}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TiLi.Core.UnitTests", "..\TiLi.Core.UnitTests\TiLi.Core.UnitTests.csproj", "{EC48E8E0-97DB-4D42-9DFD-C3E5146C6352}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TiLi.Api.UnitTests", "..\TiLi.Api.Unit.Tests\TiLi.Api.UnitTests.csproj", "{7051FB11-3E6D-45E7-A86A-83D05B7682C6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TiLi.Api.UnitTests", "..\TiLi.Api.Unit.Tests\TiLi.Api.UnitTests.csproj", "{7051FB11-3E6D-45E7-A86A-83D05B7682C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddNewUseCase", "..\AddNewUseCase\AddNewUseCase.csproj", "{CAD53E0F-31A8-4D8F-9B01-22E87F2C5405}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,6 +48,10 @@ Global
 		{7051FB11-3E6D-45E7-A86A-83D05B7682C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7051FB11-3E6D-45E7-A86A-83D05B7682C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7051FB11-3E6D-45E7-A86A-83D05B7682C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAD53E0F-31A8-4D8F-9B01-22E87F2C5405}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAD53E0F-31A8-4D8F-9B01-22E87F2C5405}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAD53E0F-31A8-4D8F-9B01-22E87F2C5405}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAD53E0F-31A8-4D8F-9B01-22E87F2C5405}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,6 +59,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{EC48E8E0-97DB-4D42-9DFD-C3E5146C6352} = {43673D9F-F5F4-419A-AAE7-9A267C3244FF}
 		{7051FB11-3E6D-45E7-A86A-83D05B7682C6} = {43673D9F-F5F4-419A-AAE7-9A267C3244FF}
+		{CAD53E0F-31A8-4D8F-9B01-22E87F2C5405} = {4A631AE2-2244-4554-A91D-99B0F44EA931}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A7B728B3-FAEE-496E-98B5-CB9DADB9BF2D}

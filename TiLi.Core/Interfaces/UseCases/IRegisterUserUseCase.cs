@@ -3,7 +3,7 @@ using TiLi.Core.Dto.UseCaseResponses;
 
 namespace TiLi.Core.Interfaces.UseCases
 {
-    public interface IRegisterUserUseCase : IUseCaseRequestHandler<RegisterUserRequest, RegisterUserResponse>
+    public interface IRegisterUserUseCase : IUseCaseRequestHandler<RegisterUserRequest, BaseResponse>
     {
     }
 }

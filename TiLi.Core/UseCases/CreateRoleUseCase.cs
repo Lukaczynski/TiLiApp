@@ -1,4 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using TiLi.Core.Domain.Entities;
 using TiLi.Core.Dto.UseCaseRequests;
@@ -9,18 +12,18 @@ using TiLi.Core.Interfaces.UseCases;
 
 namespace TiLi.Core.UseCases
 {
-    public sealed class RegisterUserUseCase : IRegisterUserUseCase
+    public sealed class CreateRoleUseCase : ICreateRoleUseCase
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IRoleRepository _rolRepository;
 
-        public RegisterUserUseCase(IUserRepository userRepository)
+        public CreateRoleUseCase(IRoleRepository rolRepository)
         {
-            _userRepository = userRepository;
+            _rolRepository = rolRepository;
         }
 
-        public async Task<bool> Handle(RegisterUserRequest message, IOutputPort<BaseResponse> outputPort)
+        public async Task<bool> Handle(CreateRoleRequest message, IOutputPort<BaseResponse> outputPort)
         {
-            var response = await _userRepository.Create(new User(message.FirstName, message.LastName,message.Email, message.UserName), message.Password);
+            var response = await _rolRepository.Create(new Role(message.Name));
             outputPort.Handle(response.Success ? new BaseResponse(response.Id, true) : new BaseResponse(response.Errors.Select(e => e.Description)));
             return response.Success;
         }

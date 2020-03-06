@@ -8,6 +8,7 @@ using TiLi.Core.Dto;
 using TiLi.Core.Dto.GatewayResponses;
 using TiLi.Core.Dto.GatewayResponses.Repositories;
 using TiLi.Core.Interfaces.Gateways.Repositories;
+using TiLi.Core.Objects;
 using TiLi.Infrastructure.Data.Entities;
 
 
@@ -60,14 +61,52 @@ namespace TiLi.Infrastructure.Data.EntityFramework.Repositories
 
         public async Task<IEnumerable<string>> GetRoles(string userId)
         {
-            return await _userManager.GetRolesAsync(await _userManager.FindByIdAsync(userId));
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                throw new System.Exception("userId (" + userId + ") not found.") { Source = this.ToString() };
+            }
+            var x = _userManager.CreateSecurityTokenAsync(user);
+            return await _userManager.GetRolesAsync(user);
         }
 
         public async Task<bool> RemoveRole(string userId, string role)
         {
+            
             var appUser = await _userManager.FindByIdAsync(userId);
             var identityResult = await _userManager.RemoveFromRoleAsync(appUser, role);
             return identityResult.Succeeded;
+        }
+
+        public async Task<IEnumerable<User>> GetUsers(Pagination pagination)
+        {
+            if (pagination != null)
+            {
+                var x = _userManager.Users.Where(x => true).ToList();
+                return _userManager.Users.
+                    OrderBy(x => x.UserName)
+                    .Skip((pagination.Pege - 1) * pagination.Limit)
+                    .Take(pagination.Pege)
+                    .Select(x => _mapper.Map<User>(x))
+                    .AsEnumerable()
+                    ;
+            }
+            return _userManager.Users
+                .OrderBy(x => x.UserName)
+                .Select(x => _mapper.Map<User>(x))
+                .AsEnumerable()
+                ;
+        }
+
+        public async Task<IEnumerable<string>> GetRoles(string userId, Pagination pagination)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                throw new System.Exception("userId (" + userId + ") not found.") { Source = this.ToString() };
+            }
+            
+            return await _userManager.GetRolesAsync(user);
         }
         #endregion User Role Management
     }

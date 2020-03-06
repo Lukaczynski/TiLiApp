@@ -6,7 +6,7 @@ using System.Net;
 using System.Threading.Tasks;
 using TiLi.Api.Controllers;
 using TiLi.Core.Domain.Entities;
-using TiLi.Core.Dto.GatewayResponses.Repositories;
+using TiLi.Core.Dto.GatewayResponses;
 using TiLi.Core.Interfaces.Gateways.Repositories;
 using TiLi.Core.UseCases;
 using TiLi.Api.Presenters;
@@ -23,13 +23,13 @@ namespace TiLi.Api.UnitTests.Controllers
             var mockUserRepository = new Mock<IUserRepository>();
             mockUserRepository
                 .Setup(repo => repo.Create(It.IsAny<User>(), It.IsAny<string>()))
-                .Returns(Task.FromResult(new CreateUserResponseDTO("", true)));
+                .Returns(Task.FromResult(new CreateBaseResponseDTO("", true)));
 
             // fakes
             var outputPort = new RegisterUserPresenter();
             var useCase = new RegisterUserUseCase(mockUserRepository.Object);
 
-            var controller = new AccountsController(useCase, outputPort);
+            var controller = new AccountsController(useCase, outputPort,null,null);
 
             // act
             var result = await controller.Post(new TiLi.Api.Models.Request.RegisterUserRequest());
@@ -44,7 +44,7 @@ namespace TiLi.Api.UnitTests.Controllers
         public async void Post_Returns_Bad_Request_When_Model_Validation_Fails()
         {
             // arrange
-            var controller = new AccountsController(null, null);
+            var controller = new AccountsController(null, null, null, null);
             controller.ModelState.AddModelError("FirstName", "Required");
 
             // act
