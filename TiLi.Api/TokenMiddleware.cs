@@ -8,23 +8,23 @@ namespace TiLi.Api
 {
     public class TokenMiddleware : IMiddleware
     {
-        private readonly ICheckTokenUseCase _tokenManager;
-        private readonly TokenPresenter _tokenPresenter;
-        public TokenManagerMiddleware(ICheckTokenUseCase tokenManager, TokenPresenter tokenPresenter)
-        {
-            _tokenManager = tokenManager;
-            _tokenPresenter = tokenPresenter;
-        }
-        public Task InvokeAsync(HttpContext context, RequestDelegate next)
+        //private readonly ICheckTokenUseCase _tokenManager;
+        //private readonly TokenPresenter _tokenPresenter;
+        //public TokenManagerMiddleware(ICheckTokenUseCase tokenManager, TokenPresenter tokenPresenter)
+        //{
+        //    _tokenManager = tokenManager;
+        //    _tokenPresenter = tokenPresenter;
+        //}
+        public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
 
-            if (await _tokenManager.IsCurrentActiveToken())
-            {
+            //if (await _tokenManager.IsCurrentActiveToken())
+            //{
                 await next(context);
 
                 return;
-            }
-            context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+            //}
+            //context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
         }
     }
 }
