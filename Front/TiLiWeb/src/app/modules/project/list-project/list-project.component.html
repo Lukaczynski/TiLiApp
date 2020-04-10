@@ -1,0 +1,11 @@
+<div class="card mt-4">
+    <h4 class="card-header">ProjectList</h4>
+    <div class="card-body">
+        <p>This page can be accessed <u>oly by athorized Users</u>.</p>
+        <p class="mb-1">All users from secure (admin only) api end point:</p>
+        <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
+        <ul *ngIf="projectList">
+            <li *ngFor="let project of projectList">{{project.name}} {{project.description}}</li>
+        </ul>
+    </div>
+</div>
