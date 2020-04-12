@@ -8,11 +8,12 @@ using Microsoft.AspNetCore.Mvc;
 using TiLi.Api.Presenters;
 using TiLi.Core.Dto.UseCaseRequests;
 using TiLi.Core.Interfaces.UseCases;
+using TiLi.Core.Objects;
 
 namespace TiLi.Api.Controllers
 {
 
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ProjectsController : ControllerBase
@@ -20,20 +21,31 @@ namespace TiLi.Api.Controllers
         private readonly ICreateProjectUseCase _createProjectUseCase;
         private readonly BaseResponsePresenter _baseResponsePresenter;
 
-        public ProjectsController(ICreateProjectUseCase createProjectUseCase, BaseResponsePresenter projectPresenter)
+        private readonly IGetProjectsUseCase _getProjectsUseCase;
+        private readonly GetProjectsPresenter _getProjectsPresenter;
+
+        public ProjectsController(
+            ICreateProjectUseCase createProjectUseCase,
+            BaseResponsePresenter projectPresenter,
+            IGetProjectsUseCase getProjectsUseCase,
+            GetProjectsPresenter getProjectsPresenter
+            )
         {
             _createProjectUseCase = createProjectUseCase;
             _baseResponsePresenter = projectPresenter;
+            _getProjectsUseCase = getProjectsUseCase;
+            _getProjectsPresenter = getProjectsPresenter;
         }
 
-        /*
+        
         // GET: api/Projects
         [HttpGet]
-        public async Task<ActionResult> Get()
+        public async Task<ActionResult> Get([FromQuery]Pagination pagination)
         {
-            return new string[] { "value1", "value2" };
+            await _getProjectsUseCase.Handle(new GetProjectsRequest(pagination),_getProjectsPresenter);
+            return _getProjectsPresenter.ContentResult;
         }
-
+        /*
         // GET: api/Projects/5
         [HttpGet("{id}", Name = "Get")]
         public async Task<ActionResult> Get(int id)

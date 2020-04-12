@@ -20,7 +20,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TiLi.Core.UnitTests", "..\T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TiLi.Api.UnitTests", "..\TiLi.Api.Unit.Tests\TiLi.Api.UnitTests.csproj", "{7051FB11-3E6D-45E7-A86A-83D05B7682C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddNewUseCase", "..\AddNewUseCase\AddNewUseCase.csproj", "{CAD53E0F-31A8-4D8F-9B01-22E87F2C5405}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AddNewUseCase", "..\AddNewUseCase\AddNewUseCase.csproj", "{CAD53E0F-31A8-4D8F-9B01-22E87F2C5405}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

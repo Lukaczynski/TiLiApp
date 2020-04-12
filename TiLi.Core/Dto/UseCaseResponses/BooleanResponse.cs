@@ -7,9 +7,9 @@ namespace TiLi.Core.Dto.UseCaseResponses
 {
     public class BooleanResponse : UseCaseResponseMessage
     {
-        public IEnumerable<string> Errors { get; }
+        public IEnumerable<Error> Errors { get; }
 
-        public BooleanResponse(IEnumerable<string> errors, bool success = false, string message = null) : base(success, message)
+        public BooleanResponse(IEnumerable<Error> errors, bool success = false, string message = null) : base(success, message)
         {
             Errors = errors;
         }

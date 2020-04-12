@@ -60,8 +60,8 @@ namespace TiLi.Infrastructure.Data.EntityFramework
 
             Console.WriteLine("DesignTimeDbContextFactory.Create(string): Connection string: {0}", connectionString);
 
-            //optionsBuilder.UseSqlServer(connectionString);
-            optionsBuilder.UseSqlite(connectionString);
+            optionsBuilder.UseSqlServer(connectionString);
+            //optionsBuilder.UseSqlite(connectionString);
             var options = optionsBuilder.Options;
             return CreateNewInstance(options);
         }

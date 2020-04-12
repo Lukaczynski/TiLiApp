@@ -11,11 +11,13 @@ namespace TiLi.Infrastructure.Data.Entities
         public Project() : base()
         {
             this.AppUserProject = new HashSet<AppUserProject>();
+            this.TimeEntries = new HashSet<TimeEntry>();
         }
         [Required]
         public string Name { get; set; }
         public string Description { get; set; }
 
         public virtual ICollection<AppUserProject> AppUserProject { get; set; }
+        public virtual ICollection<TimeEntry> TimeEntries { get; set; }
     }
 }

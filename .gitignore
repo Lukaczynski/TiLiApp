@@ -25,3 +25,7 @@
 /AddNewUseCase/obj
 /AddNewUseCase
 /Front/TiLi-Web/.vs
+/TiLi.Api/bin/Debug
+/TiLi.Web/.vs/TiLi.Web/v16
+/TiLi.Web/bin/Debug/netcoreapp3.1
+/TiLi.Web/obj

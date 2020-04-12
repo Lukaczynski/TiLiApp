@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using Microsoft.Extensions.Logging;
+using System.Linq;
 using System.Threading.Tasks;
 using TiLi.Core.Domain.Entities;
 using TiLi.Core.Dto.UseCaseRequests;
@@ -11,17 +12,22 @@ namespace TiLi.Core.UseCases
 {
     public sealed class RegisterUserUseCase : IRegisterUserUseCase
     {
+        //private readonly ILogger _logger;
         private readonly IUserRepository _userRepository;
 
-        public RegisterUserUseCase(IUserRepository userRepository)
+        public RegisterUserUseCase(
+            //ILogger logger, 
+            IUserRepository userRepository)
         {
+            //_logger = logger;
             _userRepository = userRepository;
         }
 
         public async Task<bool> Handle(RegisterUserRequest message, IOutputPort<BaseResponse> outputPort)
         {
+            //_logger.LogInformation("Registration of new User: {RegisterUserRequest}",message);
             var response = await _userRepository.Create(new User(message.FirstName, message.LastName,message.Email, message.UserName), message.Password);
-            outputPort.Handle(response.Success ? new BaseResponse(response.Id, true) : new BaseResponse(response.Errors.Select(e => e.Description)));
+            outputPort.Handle(response.Success ? new BaseResponse(response.Id, true) : new BaseResponse(response.Errors));
             return response.Success;
         }
     }

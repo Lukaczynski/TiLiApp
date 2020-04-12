@@ -25,7 +25,7 @@ namespace TiLi.Core.UseCases
         {
             CreateBaseResponseDTO response = await _userRepository.AddRole(message.UserId,message.RoleId);
             outputPort.Handle(response.Success ? new BaseResponse(response.Id, true) : 
-                new BaseResponse(response.Errors.Select(e => e.Description)));
+                new BaseResponse(response.Errors));
         
             return response.Success;
         }

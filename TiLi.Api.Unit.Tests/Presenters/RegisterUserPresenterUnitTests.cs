@@ -11,7 +11,7 @@ namespace TiLi.Api.UnitTests.Presenters
 {
     public class RegisterUserPresenterUnitTests
     {
-        [Fact]
+        /*[Fact]
         public void Contains_Ok_Status_Code_When_Use_Case_Succeeds()
         {
             // arrange
@@ -52,6 +52,6 @@ namespace TiLi.Api.UnitTests.Presenters
             dynamic data = JsonConvert.DeserializeObject(presenter.ContentResult.Content);
             Assert.False(data.success.Value);
             Assert.Equal("missing first name", data.errors.First.Value);
-        }
+        }*/
     }
 }

@@ -13,6 +13,7 @@ namespace TiLi.Infrastructure
             builder.RegisterType<UserRepository>().As<IUserRepository>().InstancePerLifetimeScope();
             builder.RegisterType<ProjectRepository>().As<IProjectRepository>().InstancePerLifetimeScope();
             builder.RegisterType<JwtFactory>().As<IJwtFactory>().SingleInstance();
+            builder.RegisterType<TimeEntryRepository>().As<ITimeEntryRepository>().InstancePerLifetimeScope();
         }
     }
 }

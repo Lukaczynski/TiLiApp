@@ -16,6 +16,9 @@ namespace TiLi.Infrastructure.Data.EntityFramework
         }
         public DbSet<Project> Projects { get; set; }
         public DbSet<AppUserProject> AppUserProjects { get; set; }
+        public DbSet<TimeEntry> TimeEntries { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
@@ -39,6 +42,9 @@ namespace TiLi.Infrastructure.Data.EntityFramework
                 .HasOne(bc => bc.AppUser)
                 .WithMany(c => c.AppUserProject)
                 .HasForeignKey(bc => bc.AppUserId);
+            modelBuilder.Entity<Project>()
+                .HasMany(b => b.TimeEntries)
+                ;
             #endregion Relations
 
 

@@ -9,9 +9,9 @@ namespace TiLi.Core.Dto.UseCaseResponses
     public class GetUsersResponse : UseCaseResponseMessage
     {
         public IEnumerable<User> Users { get; }
-        public IEnumerable<string> Errors { get; }
+        public IEnumerable<Error> Errors { get; }
 
-        public GetUsersResponse(IEnumerable<string> errors, bool success = false, string message = null) : base(success, message)
+        public GetUsersResponse(IEnumerable<Error> errors, bool success = false, string message = null) : base(success, message)
         {
             Errors = errors;
         }

@@ -45,6 +45,35 @@ namespace TiLi.Infrastructure.Data.EntityFramework.Repositories
             return _mapper.Map<User>(await _userManager.FindByIdAsync(userId));
         }
 
+        public async Task<IEnumerable<User>> GetUsers(Pagination pagination)
+        {
+
+            if (pagination != null)
+            {
+                var x = _userManager.Users.Where(x => true).ToList();
+                return await Task.Run(() =>
+                {
+                    return _userManager.Users.
+                    OrderBy(x => x.UserName)
+                    .Skip((pagination.Pege - 1) * pagination.Limit)
+                    .Take(pagination.Pege)
+                    .Select(x => _mapper.Map<User>(x))
+                    .AsEnumerable()
+;
+                });
+            }
+            return await Task.Run(() =>
+            {
+                var test = _userManager.Users
+                .OrderBy(x => x.UserName);
+                return _userManager.Users
+                .OrderBy(x => x.UserName)
+                .Select(x => _mapper.Map<User>(x))
+                .AsEnumerable()
+                ;
+            });
+        }
+
         public async Task<bool> CheckPassword(User user, string password)
         {
             return await _userManager.CheckPasswordAsync(_mapper.Map<AppUser>(user), password);
@@ -66,43 +95,15 @@ namespace TiLi.Infrastructure.Data.EntityFramework.Repositories
             {
                 throw new System.Exception("userId (" + userId + ") not found.") { Source = this.ToString() };
             }
-            var x = _userManager.CreateSecurityTokenAsync(user);
             return await _userManager.GetRolesAsync(user);
         }
 
-        public async Task<bool> RemoveRole(string userId, string role)
+        public async Task<CreateBaseResponseDTO> RemoveRole(string userId, string role)
         {
 
             var appUser = await _userManager.FindByIdAsync(userId);
             var identityResult = await _userManager.RemoveFromRoleAsync(appUser, role);
-            return identityResult.Succeeded;
-        }
-
-        public async Task<IEnumerable<User>> GetUsers(Pagination pagination)
-        {
-
-            if (pagination != null)
-            {
-                var x = _userManager.Users.Where(x => true).ToList();
-                return await Task.Run(() =>
-                {
-                    return _userManager.Users.
-                    OrderBy(x => x.UserName)
-                    .Skip((pagination.Pege - 1) * pagination.Limit)
-                    .Take(pagination.Pege)
-                    .Select(x => _mapper.Map<User>(x))
-                    .AsEnumerable()
-;
-                });
-            }
-            return await Task.Run(() =>
-            {
-                return _userManager.Users
-                .OrderBy(x => x.UserName)
-                .Select(x => _mapper.Map<User>(x))
-                .AsEnumerable()
-                ;
-            });
+            return new CreateBaseResponseDTO(appUser.Id, identityResult.Succeeded, identityResult.Succeeded ? null : identityResult.Errors.Select(e => new Error(e.Code, e.Description)));
         }
 
         public async Task<IEnumerable<string>> GetRoles(string userId, Pagination pagination)

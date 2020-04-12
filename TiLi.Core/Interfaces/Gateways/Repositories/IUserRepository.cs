@@ -19,7 +19,7 @@ namespace TiLi.Core.Interfaces.Gateways.Repositories
 
         #region Role
         Task<CreateBaseResponseDTO> AddRole(string user, string role);
-        Task<bool> RemoveRole(string user, string role);
+        Task<CreateBaseResponseDTO> RemoveRole(string user, string role);
         Task<IEnumerable<string>> GetRoles(string userId, Pagination pagination);
     
         #endregion Role

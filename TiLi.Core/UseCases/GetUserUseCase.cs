@@ -23,9 +23,13 @@ namespace TiLi.Core.UseCases
         }
         public async Task<bool> Handle(GetUserRequest message, IOutputPort<GetUserResponse> outputPort)
         {
-            var response = await _userRepository.FindById(message.UserId);
-            outputPort.Handle(response.Success ? response : new GetUserResponse(response.Errors));
-            return response.Success;
+            User response = await _userRepository.FindById(message.UserId);
+            if (response!=null)
+            {
+                outputPort.Handle(new GetUserResponse(response, true));
+            }
+            outputPort.Handle(new GetUserResponse(new[] { new Error("login_failure", "Invalid username or password.") }));
+            return false;
         }
     }
 }

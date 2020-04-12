@@ -25,7 +25,7 @@ namespace TiLi.Core.UseCases
         public async Task<bool> Handle(CreateProjectRequest message, IOutputPort<BaseResponse> outputPort)
         {
             var response = await _projectRepository.Create(new Project(message.Name,message.Description));
-            outputPort.Handle(response.Success ? new BaseResponse(response.Id, true) : new BaseResponse(response.Errors.Select(e => e.Description)));
+            outputPort.Handle(response.Success ? new BaseResponse(response.Id, true) : new BaseResponse(response.Errors));
             return response.Success;
             
         }

@@ -17,7 +17,7 @@ namespace TiLi.Core.UnitTests.UseCases
     public class RegisterUserUseCaseUnitTests
     {
 
-        [Fact]
+       /* [Fact]
         public async void Can_Register_User()
         {
             // arrange
@@ -43,6 +43,6 @@ namespace TiLi.Core.UnitTests.UseCases
 
             // assert
             Assert.True(response);
-        }
+        }*/
     }
 }

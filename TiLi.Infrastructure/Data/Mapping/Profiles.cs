@@ -33,8 +33,35 @@ namespace TiLi.Infrastructure.Data.Mapping
                 });
 
             CreateMap<Entities.Project, Core.Domain.Entities.Project>()
-                .ConstructUsing(dep => new Core.Domain.Entities.Project(dep.Name, dep.Description, dep.Id));
+                .ConstructUsing(dep =>
+                new Core.Domain.Entities.Project(
+                    dep.Name,
+                    dep.Description,
+                    dep.Id
+                    )
+                );
             #endregion Project
+
+            #region TimeEntry
+            CreateMap<Core.Domain.Entities.TimeEntry, Entities.TimeEntry>()
+                .ConstructUsing(x =>
+                new Entities.TimeEntry()
+                {
+                    Start = x.Start,
+                    End = x.End,
+                    Comment = x.Comment
+                }
+                );
+            CreateMap<Entities.TimeEntry, Core.Domain.Entities.TimeEntry>()
+                .ConstructUsing(x =>
+                new Core.Domain.Entities.TimeEntry(
+                    x.Start,
+                    x.End,
+                    x.Comment,
+                    x.Id
+                )
+                );
+            #endregion TimeEntry
 
             #region Role
             CreateMap<Role, AppRole>()

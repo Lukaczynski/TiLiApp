@@ -16,7 +16,7 @@ namespace TiLi.Core.UnitTests.UseCases
 {
     public class CreateProjectUseCaseUnitTests
     {
-        [Fact]
+       /* [Fact]
         public async void Can_Add_Project()
         {
             // arrange
@@ -41,6 +41,6 @@ namespace TiLi.Core.UnitTests.UseCases
 
             // assert
             Assert.True(response);
-        }
+        }*/
     }
 }

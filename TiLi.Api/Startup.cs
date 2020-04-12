@@ -97,7 +97,7 @@ namespace TiLi.Api
             #region FrameWork Services
             // Add framework services.
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlite(Configuration.GetConnectionString("Default"), b => b.MigrationsAssembly("TiLi.Infrastructure"))
+                options.UseSqlServer(Configuration.GetConnectionString("Default"), b => b.MigrationsAssembly("TiLi.Infrastructure"))
             );
             #endregion FrameWork Services
 
@@ -177,6 +177,7 @@ namespace TiLi.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            UpdateDatabase(app);
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -241,6 +242,19 @@ namespace TiLi.Api
 
             });
 
+        }
+
+        private static void UpdateDatabase(IApplicationBuilder app)
+        {
+            using (var serviceScope = app.ApplicationServices
+                .GetRequiredService<IServiceScopeFactory>()
+                .CreateScope())
+            {
+                using (var context = serviceScope.ServiceProvider.GetService<ApplicationDbContext>())
+                {
+                    context.Database.Migrate();
+                }
+            }
         }
     }
 }

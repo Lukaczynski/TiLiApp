@@ -22,8 +22,12 @@ namespace TiLi.Core
 
             #region Project
             builder.RegisterType<CreateProjectUseCase>().As<ICreateProjectUseCase>().InstancePerLifetimeScope();
+            builder.RegisterType<GetProjectsUseCase>().As<IGetProjectsUseCase>().InstancePerLifetimeScope();
             #endregion Project
 
+            #region TimeEntry
+            builder.RegisterType<AddTimeEntryUseCase>().As<IAddTimeEntryUseCase>().InstancePerLifetimeScope();
+            #endregion TimeEntry
             //<-GENERATED_MODULE_TEMPLATE_ADD->
         }
     }

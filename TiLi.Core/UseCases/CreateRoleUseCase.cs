@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TiLi.Core.Domain.Entities;
+using TiLi.Core.Dto;
 using TiLi.Core.Dto.UseCaseRequests;
 using TiLi.Core.Dto.UseCaseResponses;
 using TiLi.Core.Interfaces;
@@ -24,7 +25,7 @@ namespace TiLi.Core.UseCases
         public async Task<bool> Handle(CreateRoleRequest message, IOutputPort<BaseResponse> outputPort)
         {
             var response = await _rolRepository.Create(new Role(message.Name));
-            outputPort.Handle(response.Success ? new BaseResponse(response.Id, true) : new BaseResponse(response.Errors.Select(e => e.Description)));
+            outputPort.Handle(response.Success ? new BaseResponse(response.Id, true) : new BaseResponse(response.Errors));
             return response.Success;
         }
     }

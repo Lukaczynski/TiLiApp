@@ -16,7 +16,7 @@ namespace TiLi.Api.UnitTests.Controllers
 {
     public class AccountsControllerUnitTests
     {
-        [Fact]
+        /*[Fact]
         public async void Post_Returns_Ok_When_Use_Case_Succeeds()
         {
             // arrange
@@ -53,6 +53,6 @@ namespace TiLi.Api.UnitTests.Controllers
             // assert
             var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
             Assert.IsType<SerializableError>(badRequestResult.Value);
-        }
+        }*/
     }
 }
